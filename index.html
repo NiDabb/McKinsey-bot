@@ -17,7 +17,7 @@
   
   <div id="chat"></div>
   <br>
-  <input id="input" placeholder="LBBW-spezifisches Problem eingeben (z.B. 'CIR senken', 'Digital Strategy')">
+  <input id="input" placeholder="LBBW-spezifisches Problem eingeben (z.B. 'Stablecoins', 'CIR senken', 'Digital Strategy')">
   <button onclick="sendMessage()">McKinsey Analyse starten</button>
 
   <script>
@@ -57,11 +57,55 @@
     };
 
     // ========================================
-    // LBBW McKinsey INTELLIGENZ
+    // LBBW McKinsey INTELLIGENZ (ALLE SZENarien)
     // ========================================
     function generateMcKinseyAnswer(problem) {
       const ctx = firmenKontext;
       const lowerProblem = problem.toLowerCase();
+      
+      // === STABLECOINS (NEU!) ===
+      if (lowerProblem.includes("stablecoin") || lowerProblem.includes("stablecoins") || 
+          lowerProblem.includes("krypto") || lowerProblem.includes("crypto")) {
+        return `
+          <div class="mckinsey-answer">
+            <h3>🎯 EXECUTIVE SUMMARY</h3>
+            <p><strong>Stablecoins</strong> stellen für LBBW (369 Mrd.€ Bilanzsumme) <strong>existenzielle Chance + Risiko</strong>. 
+            <strong>Szenario 3 (Regulatory Green Light):</strong> +1,2 Mrd.€ p.a. Umsatzpotenzial (2% Market Share).</p>
+            
+            <h4>📊 3 STABLECOIN-SZENARIEN LBBW</h4>
+            
+            <h5>🔴 SZENARIO 1: REGULATORY BAN (40% Wahrscheinlichkeit)</h5>
+            <ul>
+              <li><strong>Impact:</strong> EU MiCA-Verbot → Kein Stablecoin-Geschäft</li>
+              <li><strong>LBBW:</strong> Verlust Top-5 Krypto-Kunden (50 Mio.€ AUM) → -15 Mio.€ Revenue</li>
+              <li><strong>Action:</strong> Pivot zu CBDC-Prep (Digital Euro Pilot)</li>
+            </ul>
+            
+            <h5>🟡 SZENARIO 2: STATUS QUO (35% Wahrscheinlichkeit)</h5>
+            <ul>
+              <li><strong>Impact:</strong> Stablecoins als Custody-Asset (kein Emission)</li>
+              <li><strong>LBBW:</strong> +200 Mio.€ AUM Wachstum Financial Markets → +8 Mio.€ Fee Income</li>
+              <li><strong>Action:</strong> USDT/USDC Custody + Staking Services</li>
+            </ul>
+            
+            <h5>🟢 SZENARIO 3: GREEN LIGHT (25% Wahrscheinlichkeit)</h5>
+            <ul>
+              <li><strong>Impact:</strong> LBBW emittiert Euro-Stablecoin (MiCA-konform)</li>
+              <li><strong>LBBW:</strong> 2% EU Stablecoin Market = <strong>1,2 Mrd.€ p.a. Revenue</strong> (0,1% Fee)</li>
+              <li><strong>Action:</strong> "LBBW EuroPeg" launchen + Mittelstand On/Off-Ramp</li>
+            </ul>
+            
+            <h4>🚀 LBBW STRATEGIE</h4>
+            <ol>
+              <li><strong>SOFORT:</strong> Regulatory Scanner + MiCA Compliance Team</li>
+              <li><strong>6 Monate:</strong> USDC Custody Partnership (Quick Win)</li>
+              <li><strong>18 Monate:</strong> LBBW Stablecoin POC (Scenario 3 Prep)</li>
+            </ol>
+            
+            <h4>📈 FINANZIERTES UPMARKET POTENZIAL</h4>
+            <p><strong>Szenario 3:</strong> CIR ${ctx.cir_2025}→54% | RoE ${ctx.roe_2025}→12,1% | +1.200 Mio.€ p.a.</p>
+          </div>`;
+      }
       
       // === UMSATZ/PROFITABILITÄT ===
       if (lowerProblem.includes("umsatz") || lowerProblem.includes("profit") || 
