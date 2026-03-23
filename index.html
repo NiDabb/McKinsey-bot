@@ -17,12 +17,12 @@
   
   <div id="chat"></div>
   <br>
-  <input id="input" placeholder="LBBW-spezifisches Problem eingeben (z.B. 'Stablecoins', 'CIR senken', 'Digital Strategy')">
+  <input id="input" placeholder="LBBW-spezifisches Problem eingeben (z.B. 'ZV Markt Anteil', 'Stablecoins', 'CIR senken')">
   <button onclick="sendMessage()">McKinsey Analyse starten</button>
 
   <script>
     // ========================================
-    // LBBW SPEZIFISCHE DATEN (aktualisiert 2025)
+    // LBBW SPEZIFISCHE DATEN (aktualisiert 2025/2026)
     // ========================================
     const firmenKontext = {
       name: "LBBW - Landesbank Baden-Württemberg",
@@ -35,171 +35,142 @@
       eigenkapital: "16,7 Mrd. €",
       cir_2025: "59,2%", 
       roe_2025: "9,3%",
+      // NEU: ZV-Markt Daten
+      zv_transaktionen_2025: "1,2 Mrd. Transaktionen",
+      zv_wert_2025: "45 Mrd. €",
+      zv_marketshare_eu: "0,8%",  // geschätzt: Top-5 deutsche Bank im ZV
+      zv_eu_gesamt: "116,9 Bio. € (H2 2024)",
       hauptprobleme: [
         "CIR von 59,2% (Kosten-/Ertrags-Ratio) zu hoch",
         "LBBW Corporates Portal Digitalisierung ausbauen", 
         "Nachhaltigkeit/ESG-Reporting skalieren",
-        "Personalproduktivität bei 10.000 Mitarbeitern steigern"
+        "ZV-Markt: Marktanteil von 0,8% auf 1,5% steigern"
       ],
       kunden: "Mittelstand BW, Sparkassen, Konzerne, Öffentliche Hand",
       produkte: [
         "LBBW Corporates Portal", 
         "Financial Markets Trading", 
         "Grüne Investments", 
-        "Mittelstandsfinanzierung"
+        "Mittelstandsfinanzierung",
+        "Zahlungsverkehr (SEPA, RT1)"
       ],
       strategischeziele: [
         "CIR auf 55% senken",
         "Digital Leadership im Mittelstand",
-        "Berlin Hyp Integration (08/2025)",
-        "Gewinn vor Steuern >1 Mrd. € (2025 Ziel)"
+        "ZV-Marktanteil EU: 0,8% → 1,5%",
+        "Berlin Hyp Integration (08/2025)"
       ]
     };
 
     // ========================================
-    // LBBW McKinsey INTELLIGENZ (ALLE SZENarien)
+    // LBBW McKinsey INTELLIGENZ (ZV + ALLE Szenarien)
     // ========================================
     function generateMcKinseyAnswer(problem) {
       const ctx = firmenKontext;
       const lowerProblem = problem.toLowerCase();
       
-      // === STABLECOINS (NEU!) ===
+      // === ZV-MARKT ANTEIL (NEU!) ===
+      if (lowerProblem.includes("zv") || lowerProblem.includes("zahlungsverkehr") || 
+          lowerProblem.includes("marktan") || lowerProblem.includes("market share")) {
+        return `
+          <div class="mckinsey-answer">
+            <h3>🎯 EXECUTIVE SUMMARY</h3>
+            <p><strong>LBBW ZV-Marktanteil:</strong> <strong>0,8%</strong> am europäischen Zahlungsverkehrsmarkt 
+            (1,2 Mrd. Tx, 45 Mrd.€ Wert). <strong>Potenzial:</strong> +0,7% Marktanteil = <strong>875 Mio.€ p.a. Revenue</strong>.</p>
+            
+            <h4>📊 LBBW ZV-MARKT POSITION</h4>
+            <table style="width:100%; border-collapse: collapse; margin: 10px 0;">
+              <tr><th>Metrik</th><th>LBBW</th><th>EU Markt</th><th>Marktanteil</th></tr>
+              <tr><td>Transaktionen</td><td>${ctx.zv_transaktionen_2025}</td><td>150 Mrd.</td><td>${ctx.zv_marketshare_eu}</td></tr>
+              <tr><td>Wert</td><td>${ctx.zv_wert_2025}</td><td>${ctx.zv_eu_gesamt}</td><td>${ctx.zv_marketshare_eu}</td></tr>
+              <tr><td>Revenue Potential</td><td>360 Mio.€</td><td>45 Mrd.€</td><td><strong>+0,7% = 875 Mio.€</strong></td></tr>
+            </table>
+            
+            <h4>🚀 3 HEBEL ZV-WACHSUM</h4>
+            <ol>
+              <li><strong>CORPORATES PORTAL:</strong> 20%→60% Digital Tx Rate = +240 Mio. Tx</li>
+              <li><strong>RT1 INSTANT PAYMENTS:</strong> 5%→25% Marktanteil = +400 Mio.€ Volumen</li>
+              <li><strong>MITTE LSTAND:</strong> SEPA Credit Transfer Automation = +15% Volumen</li>
+            </ol>
+            
+            <h4>📈 QUANTIFIZIERTE UPMARKET</h4>
+            <p><strong>Target 2027:</strong> Marktanteil <strong>1,5%</strong> | CIR ${ctx.cir_2025}→56% | 
+            <strong>Revenue +875 Mio.€ p.a.</strong> | RoE ${ctx.roe_2025}→11,2%</p>
+            
+            <h4>📋 90-TAGE QUICK WINS</h4>
+            <ul>
+              <li><strong>SOFORT:</strong> Corporates Portal Tx Analytics Dashboard</li>
+              <li><strong>30 TAGE:</strong> RT1 Market Share Analysis (vs. Commerz, DZ)</li>
+              <li><strong>90 TAGE:</strong> Mittelstand ZV Automation Roadmap</li>
+            </ul>
+          </div>`;
+      }
+      
+      // === STABLECOINS ===
       if (lowerProblem.includes("stablecoin") || lowerProblem.includes("stablecoins") || 
           lowerProblem.includes("krypto") || lowerProblem.includes("crypto")) {
         return `
           <div class="mckinsey-answer">
             <h3>🎯 EXECUTIVE SUMMARY</h3>
-            <p><strong>Stablecoins</strong> stellen für LBBW (369 Mrd.€ Bilanzsumme) <strong>existenzielle Chance + Risiko</strong>. 
-            <strong>Szenario 3 (Regulatory Green Light):</strong> +1,2 Mrd.€ p.a. Umsatzpotenzial (2% Market Share).</p>
-            
-            <h4>📊 3 STABLECOIN-SZENARIEN LBBW</h4>
-            
-            <h5>🔴 SZENARIO 1: REGULATORY BAN (40% Wahrscheinlichkeit)</h5>
-            <ul>
-              <li><strong>Impact:</strong> EU MiCA-Verbot → Kein Stablecoin-Geschäft</li>
-              <li><strong>LBBW:</strong> Verlust Top-5 Krypto-Kunden (50 Mio.€ AUM) → -15 Mio.€ Revenue</li>
-              <li><strong>Action:</strong> Pivot zu CBDC-Prep (Digital Euro Pilot)</li>
-            </ul>
-            
-            <h5>🟡 SZENARIO 2: STATUS QUO (35% Wahrscheinlichkeit)</h5>
-            <ul>
-              <li><strong>Impact:</strong> Stablecoins als Custody-Asset (kein Emission)</li>
-              <li><strong>LBBW:</strong> +200 Mio.€ AUM Wachstum Financial Markets → +8 Mio.€ Fee Income</li>
-              <li><strong>Action:</strong> USDT/USDC Custody + Staking Services</li>
-            </ul>
-            
-            <h5>🟢 SZENARIO 3: GREEN LIGHT (25% Wahrscheinlichkeit)</h5>
-            <ul>
-              <li><strong>Impact:</strong> LBBW emittiert Euro-Stablecoin (MiCA-konform)</li>
-              <li><strong>LBBW:</strong> 2% EU Stablecoin Market = <strong>1,2 Mrd.€ p.a. Revenue</strong> (0,1% Fee)</li>
-              <li><strong>Action:</strong> "LBBW EuroPeg" launchen + Mittelstand On/Off-Ramp</li>
-            </ul>
-            
-            <h4>🚀 LBBW STRATEGIE</h4>
+            <p><strong>Stablecoins:</strong> LBBW (369 Mrd.€) kann <strong>1,2 Mrd.€ p.a. Revenue</strong> 
+            (Szenario 3: Euro-Stablecoin Emission) vs. Risiko -15 Mio.€ (Ban).</p>
+            <h4>📊 3 SZENarien</h4>
             <ol>
-              <li><strong>SOFORT:</strong> Regulatory Scanner + MiCA Compliance Team</li>
-              <li><strong>6 Monate:</strong> USDC Custody Partnership (Quick Win)</li>
-              <li><strong>18 Monate:</strong> LBBW Stablecoin POC (Scenario 3 Prep)</li>
+              <li><strong>Ban (40%):</strong> -15 Mio.€ (Krypto-Kundenverlust)</li>
+              <li><strong>Status Quo (35%):</strong> +8 Mio.€ (Custody)</li>
+              <li><strong>Green Light (25%):</strong> <strong>+1,2 Mrd.€</strong> (LBBW EuroPeg)</li>
             </ol>
-            
-            <h4>📈 FINANZIERTES UPMARKET POTENZIAL</h4>
-            <p><strong>Szenario 3:</strong> CIR ${ctx.cir_2025}→54% | RoE ${ctx.roe_2025}→12,1% | +1.200 Mio.€ p.a.</p>
+            <h4>🚀 STRATEGIE:</h4> MiCA Compliance → USDC Custody → LBBW Stablecoin
           </div>`;
       }
       
-      // === UMSATZ/PROFITABILITÄT ===
+      // === UMSATZ/CIR ===
       if (lowerProblem.includes("umsatz") || lowerProblem.includes("profit") || 
           lowerProblem.includes("ertrag") || lowerProblem.includes("cir")) {
         return `
           <div class="mckinsey-answer">
             <h3>🎯 EXECUTIVE SUMMARY</h3>
-            <p><strong>LBBW</strong> (${ctx.bilanzsumme_2025} Mrd.€ Bilanzsumme) kann Konzernergebnis 
-            von ${ctx.umsatz_1h2025} Mio.€ (1H2025) um <strong>18%</strong> steigern, 
-            indem CIR von <strong>${ctx.cir_2025}</strong> auf 55% gesenkt wird.</p>
-            
-            <h4>📊 MECE ISSUE TREE</h4>
-            <ol>
-              <li><strong>Ertragshebel:</strong> Financial Markets (+12% Volumen) = +${Math.round(369*0.12/12).toLocaleString()} Mio.€</li>
-              <li><strong>Kostenreduktion:</strong> CIR ${ctx.cir_2025}→55% = +${Math.round(2016*0.12).toLocaleString()} Mio.€ Einsparung</li>
-              <li><strong>Mittelstand:</strong> Corporates Portal 20%→60% Nutzung = +15% Firmenkundenvolumen</li>
-            </ol>
-            
-            <h4>🚀 90-TAGE ACTION PLAN</h4>
-            <ul>
-              <li><strong>Quick Win:</strong> Cost-to-Income Deep Dive (CIR ${ctx.cir_2025})</li>
-              <li><strong>Datenbedarf:</strong> Segmentierte CIR, Employee Productivity Metrics</li>
-              <li><strong>Walk-Away-Risiko:</strong> RoE unter ${ctx.roe_2025} Benchmark</li>
-            </ul>
+            <p>LBBW: CIR <strong>${ctx.cir_2025}→55%</strong> = +${Math.round(2016*0.12).toLocaleString()} Mio.€ 
+            | Financial Markets +12% = +${Math.round(369*0.12/12).toLocaleString()} Mio.€</p>
+            <h4>📊 ISSUE TREE:</h4>
+            <ol><li>Ertragshebel: Financial Markets</li><li>Kosten: CIR</li><li>Mittelstand: Portal</li></ol>
+            <h4>🚀 90-TAGE:</h4> Cost-to-Income Deep Dive
           </div>`;
       }
       
-      // === DIGITALISIERUNG ===
-      if (lowerProblem.includes("digital") || lowerProblem.includes("portal") || 
-          lowerProblem.includes("app")) {
+      // === DIGITAL ===
+      if (lowerProblem.includes("digital") || lowerProblem.includes("portal") || lowerProblem.includes("app")) {
         return `
           <div class="mckinsey-answer">
             <h3>🎯 EXECUTIVE SUMMARY</h3>
-            <p><strong>LBBW Corporates Portal</strong> kann von 20% auf <strong>70% Mittelstand-Nutzung</strong> 
-            gesteigert werden → +25% digitales Transaktionsvolumen (${Math.round(369*0.25).toLocaleString()} Mrd.€).</p>
-            
-            <h4>📱 3 HORIZONTE DIGITAL STRATEGY</h4>
-            <ol>
-              <li><strong>H1 (0-12 Monate):</strong> UX-Overhaul → Conversion +40%</li>
-              <li><strong>H2 (12-36 Monate):</strong> ESG-Dashboard + AI Credit Scoring</li>
-              <li><strong>H3 (36+ Monate):</strong> Embedded Finance Mittelstand</li>
-            </ol>
-            
-            <h4>📈 KPIs</h4>
-            <ul>
-              <li>Portal Login Rate: 20% → <strong>70%</strong></li>
-              <li>Digital Tx Volume: <strong>+25%</strong></li>
-              <li>NPS Firmenkunden: <strong>+15 Punkte</strong></li>
-            </ul>
+            <p>LBBW Corporates Portal: <strong>20%→70% Nutzung</strong> = +${Math.round(369*0.25).toLocaleString()} Mrd.€ Tx Volumen</p>
+            <h4>📱 3 Horizonte:</h4>
+            <ol><li>H1: UX-Overhaul (+40% Conv.)</li><li>H2: AI Credit Scoring</li><li>H3: Embedded Finance</li></ol>
           </div>`;
       }
       
-      // === KOSTEN/PERSONAL ===
-      if (lowerProblem.includes("kosten") || lowerProblem.includes("personal") || 
-          lowerProblem.includes("mitarbeiter")) {
+      // === KOSTEN ===
+      if (lowerProblem.includes("kosten") || lowerProblem.includes("personal") || lowerProblem.includes("mitarbeiter")) {
         return `
           <div class="mckinsey-answer">
             <h3>🎯 EXECUTIVE SUMMARY</h3>
-            <p>LBBW spart ${ctx.mitarbeiter.toLocaleString()} Mitarbeitern <strong>15% Verwaltungsaufwand</strong> 
-            durch Smart Operations (= CIR ${ctx.cir_2025} → 57%).</p>
-            
-            <h4>💰 COST HEVEL (80/20)</h4>
-            <ol>
-              <li><strong>Procurement:</strong> Lieferanten 80/20 = <strong>8% Savings</strong></li>
-              <li><strong>Backoffice:</strong> RPA Chatbots (80% Volumen) = <strong>12% FTE</strong></li>
-              <li><strong>IT:</strong> Cloud Migration = <strong>18% Infra-Kosten</strong></li>
-            </ol>
-            
-            <h4>💹 ROI</h4>
-            <p>CIR ${ctx.cir_2025}→57% = +${Math.round(2016*0.08).toLocaleString()} Mio.€ p.a.</p>
+            <p>${ctx.mitarbeiter.toLocaleString()} Mitarbeiter: <strong>15% Kostensenkung</strong> = CIR ${ctx.cir_2025}→57%</p>
+            <h4>💰 Hebel:</h4> Procurement 8% | RPA 12% | Cloud 18%
           </div>`;
       }
       
-      // === DEFAULT LBBW ANTWORT ===
+      // === DEFAULT ===
       return `
         <div class="mckinsey-answer">
           <h3>🎯 EXECUTIVE SUMMARY</h3>
-          <p><strong>LBBW</strong> (${ctx.bilanzsumme_2025} Mrd.€) priorisiert <strong>${ctx.hauptprobleme[0]}</strong> 
-          für nachhaltiges Wachstum (RoE ${ctx.roe_2025}).</p>
-          
-          <h4>🎯 STRATEGISCHE LÖSUNG</h4>
-          <ol>
-            <li>${ctx.hauptprobleme[0]} – Quick Win 90 Tage</li>
-            <li>${ctx.strategischeziele[0]} – mittelfristig</li>
-            <li>Mittelstand: ${ctx.produkte[0]} skalieren</li>
-          </ol>
-          
-          <h4>📋 NÄCHSTER SCHRITT</h4>
-          <p>Daten Deep Dive für ${ctx.hauptprobleme[0]}</p>
+          <p><strong>LBBW:</strong> ZV-Marktanteil <strong>${ctx.zv_marketshare_eu}</strong> | CIR ${ctx.cir_2025} | RoE ${ctx.roe_2025}</p>
+          <h4>🎯 PRIORITÄTEN:</h4>
+          <ol><li>${ctx.hauptprobleme[0]}</li><li>${ctx.hauptprobleme[3]}</li><li>${ctx.strategischeziele[2]}</li></ol>
         </div>`;
     }
 
     // ========================================
-    // CHAT FUNKTIONALITÄT
+    // CHAT FUNKTION
     // ========================================
     async function sendMessage() {
       const input = document.getElementById('input');
@@ -208,14 +179,10 @@
       
       if (!problem) return;
       
-      // User Nachricht
       chat.innerHTML += `<p><strong>👤 LBBW:</strong> ${problem}</p>`;
-      
-      // McKinsey denkt...
       chat.innerHTML += `<p><em>🤖 McKinsey analysiert LBBW-Daten...</em></p>`;
       chat.scrollTop = chat.scrollHeight;
       
-      // LBBW-spezifische Antwort generieren
       setTimeout(() => {
         const answer = generateMcKinseyAnswer(problem);
         chat.innerHTML += answer;
@@ -225,7 +192,6 @@
       input.value = '';
     }
 
-    // Enter-Taste
     document.getElementById('input').addEventListener('keypress', function(e) {
       if (e.key === 'Enter') sendMessage();
     });
