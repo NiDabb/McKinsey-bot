@@ -1,46 +1,190 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Mein McKinsey-Berater</title>
+  <title>LBBW McKinsey Berater</title>
   <style>
-    body { font-family: Arial; max-width: 800px; margin: 50px auto; }
-    #chat { border: 1px solid #ccc; height: 400px; overflow-y: scroll; padding: 10px; }
-    #input { width: 70%; padding: 10px; }
-    button { padding: 10px 20px; }
+    body { font-family: Arial; max-width: 900px; margin: 50px auto; background: #f8f9fa; }
+    #chat { border: 1px solid #ddd; height: 500px; overflow-y: scroll; padding: 20px; background: white; border-radius: 10px; }
+    #input { width: 70%; padding: 15px; border: 2px solid #007bff; border-radius: 5px; font-size: 16px; }
+    button { padding: 15px 30px; background: #007bff; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; }
+    button:hover { background: #0056b3; }
+    .mckinsey-answer { background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); padding: 15px; border-left: 5px solid #1976d2; margin: 10px 0; }
   </style>
 </head>
 <body>
-  <h1>🤖 McKinsey Berater</h1>
+  <h1>🤖 LBBW McKinsey Berater</h1>
+  <p><em>Landesbank Baden-Württemberg | Bilanzsumme: 369 Mrd. € | 10.000 Mitarbeiter</em></p>
+  
   <div id="chat"></div>
-  <input id="input" placeholder="Dein Business-Problem hier eingeben...">
-  <button onclick="sendMessage()">Analysieren lassen</button>
+  <br>
+  <input id="input" placeholder="LBBW-spezifisches Problem eingeben (z.B. 'CIR senken', 'Digital Strategy')">
+  <button onclick="sendMessage()">McKinsey Analyse starten</button>
 
   <script>
+    // ========================================
+    // LBBW SPEZIFISCHE DATEN (aktualisiert 2025)
+    // ========================================
+    const firmenKontext = {
+      name: "LBBW - Landesbank Baden-Württemberg",
+      branche: "Universalbank (Mittelstand, Corporates, Financial Markets)",
+      bilanzsumme_2025: "369 Mrd. €",
+      mitarbeiter: 10000,
+      standorte: "Stuttgart + 100 bundesweit, 16 international",
+      umsatz_1h2025: "2.016 Mio. € (Nettoergebnis 1H2025)",
+      jahresueberschuss_2024: "1.23 Mrd. € (Vorsteuergewinn)",
+      eigenkapital: "16,7 Mrd. €",
+      cir_2025: "59,2%", 
+      roe_2025: "9,3%",
+      hauptprobleme: [
+        "CIR von 59,2% (Kosten-/Ertrags-Ratio) zu hoch",
+        "LBBW Corporates Portal Digitalisierung ausbauen", 
+        "Nachhaltigkeit/ESG-Reporting skalieren",
+        "Personalproduktivität bei 10.000 Mitarbeitern steigern"
+      ],
+      kunden: "Mittelstand BW, Sparkassen, Konzerne, Öffentliche Hand",
+      produkte: [
+        "LBBW Corporates Portal", 
+        "Financial Markets Trading", 
+        "Grüne Investments", 
+        "Mittelstandsfinanzierung"
+      ],
+      strategischeziele: [
+        "CIR auf 55% senken",
+        "Digital Leadership im Mittelstand",
+        "Berlin Hyp Integration (08/2025)",
+        "Gewinn vor Steuern >1 Mrd. € (2025 Ziel)"
+      ]
+    };
+
+    // ========================================
+    // LBBW McKinsey INTELLIGENZ
+    // ========================================
+    function generateMcKinseyAnswer(problem) {
+      const ctx = firmenKontext;
+      const lowerProblem = problem.toLowerCase();
+      
+      // === UMSATZ/PROFITABILITÄT ===
+      if (lowerProblem.includes("umsatz") || lowerProblem.includes("profit") || 
+          lowerProblem.includes("ertrag") || lowerProblem.includes("cir")) {
+        return `
+          <div class="mckinsey-answer">
+            <h3>🎯 EXECUTIVE SUMMARY</h3>
+            <p><strong>LBBW</strong> (${ctx.bilanzsumme_2025} Mrd.€ Bilanzsumme) kann Konzernergebnis 
+            von ${ctx.umsatz_1h2025} Mio.€ (1H2025) um <strong>18%</strong> steigern, 
+            indem CIR von <strong>${ctx.cir_2025}</strong> auf 55% gesenkt wird.</p>
+            
+            <h4>📊 MECE ISSUE TREE</h4>
+            <ol>
+              <li><strong>Ertragshebel:</strong> Financial Markets (+12% Volumen) = +${Math.round(369*0.12/12).toLocaleString()} Mio.€</li>
+              <li><strong>Kostenreduktion:</strong> CIR ${ctx.cir_2025}→55% = +${Math.round(2016*0.12).toLocaleString()} Mio.€ Einsparung</li>
+              <li><strong>Mittelstand:</strong> Corporates Portal 20%→60% Nutzung = +15% Firmenkundenvolumen</li>
+            </ol>
+            
+            <h4>🚀 90-TAGE ACTION PLAN</h4>
+            <ul>
+              <li><strong>Quick Win:</strong> Cost-to-Income Deep Dive (CIR ${ctx.cir_2025})</li>
+              <li><strong>Datenbedarf:</strong> Segmentierte CIR, Employee Productivity Metrics</li>
+              <li><strong>Walk-Away-Risiko:</strong> RoE unter ${ctx.roe_2025} Benchmark</li>
+            </ul>
+          </div>`;
+      }
+      
+      // === DIGITALISIERUNG ===
+      if (lowerProblem.includes("digital") || lowerProblem.includes("portal") || 
+          lowerProblem.includes("app")) {
+        return `
+          <div class="mckinsey-answer">
+            <h3>🎯 EXECUTIVE SUMMARY</h3>
+            <p><strong>LBBW Corporates Portal</strong> kann von 20% auf <strong>70% Mittelstand-Nutzung</strong> 
+            gesteigert werden → +25% digitales Transaktionsvolumen (${Math.round(369*0.25).toLocaleString()} Mrd.€).</p>
+            
+            <h4>📱 3 HORIZONTE DIGITAL STRATEGY</h4>
+            <ol>
+              <li><strong>H1 (0-12 Monate):</strong> UX-Overhaul → Conversion +40%</li>
+              <li><strong>H2 (12-36 Monate):</strong> ESG-Dashboard + AI Credit Scoring</li>
+              <li><strong>H3 (36+ Monate):</strong> Embedded Finance Mittelstand</li>
+            </ol>
+            
+            <h4>📈 KPIs</h4>
+            <ul>
+              <li>Portal Login Rate: 20% → <strong>70%</strong></li>
+              <li>Digital Tx Volume: <strong>+25%</strong></li>
+              <li>NPS Firmenkunden: <strong>+15 Punkte</strong></li>
+            </ul>
+          </div>`;
+      }
+      
+      // === KOSTEN/PERSONAL ===
+      if (lowerProblem.includes("kosten") || lowerProblem.includes("personal") || 
+          lowerProblem.includes("mitarbeiter")) {
+        return `
+          <div class="mckinsey-answer">
+            <h3>🎯 EXECUTIVE SUMMARY</h3>
+            <p>LBBW spart ${ctx.mitarbeiter.toLocaleString()} Mitarbeitern <strong>15% Verwaltungsaufwand</strong> 
+            durch Smart Operations (= CIR ${ctx.cir_2025} → 57%).</p>
+            
+            <h4>💰 COST HEVEL (80/20)</h4>
+            <ol>
+              <li><strong>Procurement:</strong> Lieferanten 80/20 = <strong>8% Savings</strong></li>
+              <li><strong>Backoffice:</strong> RPA Chatbots (80% Volumen) = <strong>12% FTE</strong></li>
+              <li><strong>IT:</strong> Cloud Migration = <strong>18% Infra-Kosten</strong></li>
+            </ol>
+            
+            <h4>💹 ROI</h4>
+            <p>CIR ${ctx.cir_2025}→57% = +${Math.round(2016*0.08).toLocaleString()} Mio.€ p.a.</p>
+          </div>`;
+      }
+      
+      // === DEFAULT LBBW ANTWORT ===
+      return `
+        <div class="mckinsey-answer">
+          <h3>🎯 EXECUTIVE SUMMARY</h3>
+          <p><strong>LBBW</strong> (${ctx.bilanzsumme_2025} Mrd.€) priorisiert <strong>${ctx.hauptprobleme[0]}</strong> 
+          für nachhaltiges Wachstum (RoE ${ctx.roe_2025}).</p>
+          
+          <h4>🎯 STRATEGISCHE LÖSUNG</h4>
+          <ol>
+            <li>${ctx.hauptprobleme[0]} – Quick Win 90 Tage</li>
+            <li>${ctx.strategischeziele[0]} – mittelfristig</li>
+            <li>Mittelstand: ${ctx.produkte[0]} skalieren</li>
+          </ol>
+          
+          <h4>📋 NÄCHSTER SCHRITT</h4>
+          <p>Daten Deep Dive für ${ctx.hauptprobleme[0]}</p>
+        </div>`;
+    }
+
+    // ========================================
+    // CHAT FUNKTIONALITÄT
+    // ========================================
     async function sendMessage() {
       const input = document.getElementById('input');
       const chat = document.getElementById('chat');
+      const problem = input.value.trim();
       
-      chat.innerHTML += `<p><strong>Du:</strong> ${input.value}</p>`;
+      if (!problem) return;
       
-      const mckinseyPrompt = `Analysiere als McKinsey-Berater MECE: "${input.value}" 
-      1. Executive Summary
-      2. 3 Hypothesen 
-      3. Datenbedarf
-      4. Nächste Schritte`;
+      // User Nachricht
+      chat.innerHTML += `<p><strong>👤 LBBW:</strong> ${problem}</p>`;
       
-      chat.innerHTML += `<p><em>🤖 Berater denkt...</em></p>`;
+      // McKinsey denkt...
+      chat.innerHTML += `<p><em>🤖 McKinsey analysiert LBBW-Daten...</em></p>`;
+      chat.scrollTop = chat.scrollHeight;
       
+      // LBBW-spezifische Antwort generieren
       setTimeout(() => {
-        chat.innerHTML += `<p><strong>🤖 McKinsey:</strong> 
-          <b>EXECUTIVE SUMMARY:</b> Dein Problem braucht strukturierte Analyse.<br>
-          <b>Hypothesen:</b> 1. Markt, 2. Kosten, 3. Prozesse.<br>
-          <b>Nächste Schritte:</b> Daten sammeln.</p>`;
+        const answer = generateMcKinseyAnswer(problem);
+        chat.innerHTML += answer;
         chat.scrollTop = chat.scrollHeight;
-      }, 2000);
+      }, 1500);
       
       input.value = '';
-      chat.scrollTop = chat.scrollHeight;
     }
+
+    // Enter-Taste
+    document.getElementById('input').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') sendMessage();
+    });
   </script>
 </body>
 </html>
